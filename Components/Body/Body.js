@@ -11,11 +11,17 @@ const  Body = ()=>{
     const [isAllProducts,setIsAllProducts] = useState(true);
     const [page,setPage] = useState(0);
     const [isAllLoaded,setIsAllLoaded] = useState(false);
+    const [isSearchLoadMore,setIsSearchLoadMore] = useState(false);
+    const [searchPage,setSearchPage] = useState(1);
     const fetchFunction = async (api,setterFunction,prev)=>{
         try{
         const response = await fetch(api);
         const data = await response.json();
-        if(data.length==0) setIsAllLoaded(true);
+        console.log(data.length);
+        if(data.length==0){
+            setIsAllLoaded(true);
+            setIsSearchLoadMore(false);
+        }
         setterFunction([...prev,...data]);
         }
         catch(err)
@@ -34,6 +40,14 @@ const  Body = ()=>{
         else
             setSearchItems([]);
     },[searchText]);
+    useEffect(()=>{
+        console.log("inside useeffect of search text load more");
+        if(searchText.trim().length>0)
+        {
+            console.log("inside if of search"); 
+            fetchFunction(`http://localhost:3000/similarproducts/${searchText.trim()}/${searchPage}/12`,setProducts,products);
+        }
+    },[searchPage])
     return (
         <>
             <div className="flex justify-center mt-44">
@@ -68,13 +82,18 @@ const  Body = ()=>{
                     //setButtonItem(searchItem);
                     if(searchText.trim().length>0)
                     {
-                        fetchFunction(`http://localhost:3000/similarproducts/${searchText.trim()}`,setProducts,[]);
-                        setIsAllProducts(false);   
+                        fetchFunction(`http://localhost:3000/similarproducts/${searchText.trim()}/0/12`,setProducts,[]);
+                        setIsSearchLoadMore(true);
+                        setIsAllProducts(false);
+                        setIsAllLoaded(true);   
                     }
                     else if(!isAllProducts)
                     {
-                        fetchFunction(`http://localhost:3000/products/${page}/12`,setProducts,products);
+                        console.log("isAllProducts false");
+                        fetchFunction(`http://localhost:3000/products/${page}/12`,setProducts,[]);
                         setIsAllProducts(true);
+                        setIsSearchLoadMore(false);
+                        setIsAllLoaded(false); 
                     }
                     setPrintSearchText(searchText);
                 }}
@@ -89,9 +108,19 @@ const  Body = ()=>{
             :<button 
             className="text-lg font-bold text-center my-4 cursor-pointer w-full text-green-700 hover:text-green-500"
             onClick = {()=>{
+                console.log("setPage clicked")
                 setPage(page+12);
             }}
             >Load More...</button>}
+            {isSearchLoadMore
+                ?<button 
+                className="text-lg font-bold text-center my-4 cursor-pointer w-full text-green-700 hover:text-green-500"
+                onClick = {()=>{
+                    console.log("setSearchPage clicked")
+                    setSearchPage(searchPage+12);
+                }}>Load More...</button>
+                :null
+            }
         </>
     )
 }

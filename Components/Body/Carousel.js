@@ -20,7 +20,7 @@ export default function Carousel({params}) {
         style={{ transform: `translateX(-${curr * 100}%)` }}
       >
         {params.slides.map((x)=>{
-            return <img src={x}/>
+            return <img src={x} key={x}/>
         })}
       </div>
       <div className="absolute inset-0 flex items-center justify-between p-4">
