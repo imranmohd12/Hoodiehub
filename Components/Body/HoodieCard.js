@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 const HoodieCard = (props) => {
     const { cartItem, setCartItem } = useContext(CartContext);
     const [path,setPath] = useState(`/details/${props.prodData.id}`);
+    
     localStorage.setItem("hoodiehubcart", JSON.stringify(cartItem));
     return (
         <div className="flex flex-col m-4 sm:w-20  md:w-1/5 hover:shadow-xl transition-shadow items-center">
@@ -13,7 +14,7 @@ const HoodieCard = (props) => {
             onClick={()=>{
                 setPath(`/details/${props?.prodData?.id}`);
             }}
-            className="flex flex-col m-4 text-center rounded-md h-5/6">
+            className="flex flex-col mx-4 text-center rounded-md h-5/6">
                 <div className="h-3/4">
                     <img src={props?.prodData?.img[0]?.imgurl} className="rounded-tr-md rounded-tl-md h-full w-auto"></img>
                 </div>
@@ -27,6 +28,14 @@ const HoodieCard = (props) => {
                     </div>
                 </div>
             </Link>
+            <div className="border border-black">
+                {Object.keys(props?.prodData?.sizes[0]).map((x)=>{
+                    if(props?.prodData?.sizes[0][x]!=0)
+                    {
+                        return <><input type="radio" name="size" value={x} id={x} className="hidden"/><label htmlFor="id" className="text-md font-bold px-2 border border-black ">{x.toUpperCase()}</label></>
+                    }
+                })}
+            </div>
             <button
                 className="bg-black text-white p-2 rounded-md w-5/6"
                 onClick={() => {
