@@ -5,9 +5,10 @@ import { RouterProvider,Outlet } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import Cart from "./Components/Cart/Cart";
 import { useContext, useState } from "react";
-import CartContext from "./Utils/cartContext";
+import CartContext from "./Utils/CartContext";
 import ProductDetails from "./Components/Body/ProductDetails";
 import About from "./Components/Footer/About";
+import CartContext from "./Utils/CartContext";
 const setLocalStorage = ()=>{
     let dummycart = {
         cartitems : [],
