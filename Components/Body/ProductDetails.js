@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Carousel from "./Carousel";
 import SimilarProducts from "./SimilarProducts";
+import CartContext from "../../Utils/cartContext";
 
 const ProductDetails = ()=>{
+    const {updateCart} = useContext(CartContext);
     const [product,setProduct] = useState([]);
+    const [size,setSize] = useState("");
+    const [showError,setShowError] = useState(false);
+    const [isSizeSelected,setIsSizeSelected] = useState(false);
     let {id} = useParams();
     const getProduct = async ()=>{
         const resp = await fetch(`http://localhost:3000/products/${id}`);
@@ -42,12 +47,33 @@ const ProductDetails = ()=>{
                 <h1 className="font-BOLD text-2xl my-4">SELECT SIZE</h1>
                 <div className="flex my-4">
                     {Object.keys(product[0]?.sizes[0]).map((x)=>{
-                        return product[0]?.sizes[0][x]==1
-                        ?<button className="border rounded-sm text-lg w-10 text-center font-semibold mx-3 p-2 hover:bg-black hover:text-white">{x.toUpperCase()}</button>
-                        :null
+                        if(product[0]?.sizes[0][x]!=0)
+                        {
+                            return <><input type="radio" name={`size${product[0].id}`} value={x} id={x+product[0].id} className="" 
+                            onChange={
+                                (e)=>{
+                                    setSize(e.target.value);
+                                    setShowError(false);
+                                    setIsSizeSelected(true);
+                                }
+                            }/><label htmlFor={x+product[0].id} className="border rounded-sm text-lg w-10 text-center font-semibold mx-3 p-2 hover:bg-black hover:text-white">{x.toUpperCase()}</label></>
+                        }
                     })}
+                    
                 </div>
-                <button className="my-4 text-2xl bg-black text-white rounded-lg p-3">ADD TO CART</button>
+                {showError?<h1 className="font-semibold text-md text-red-600">please select the size</h1>:null}
+                <button 
+                className="my-4 text-2xl bg-black text-white rounded-lg p-3"
+                onClick={()=>{
+                    if(isSizeSelected){
+                        updateCart({...product[0],key:product[0].id,size:size});
+                    }
+                    else{
+                        setShowError(true);
+                    }
+                    
+                }}
+                >ADD TO CART</button>
                 <div className="my-4 text-gray-500">
                     <h1>100% Original Products</h1>
                     <h1>Pay on delivery might be available</h1>

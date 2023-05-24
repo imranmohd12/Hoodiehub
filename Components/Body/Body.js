@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import HoodieCard from "./HoodieCard";
 import { Link } from "react-router-dom";
+import ShimmerHome from "../Shimmer/ShimmerHome";
 
 
 const  Body = ()=>{
@@ -49,6 +50,7 @@ const  Body = ()=>{
         }
     },[searchPage])
     return (
+
         <>
             <div className="flex justify-center mt-44">
                 <div className="">
@@ -100,26 +102,32 @@ const  Body = ()=>{
                 >search</button>
             </div>
             {printSearchText.length>0?<h1 className="text-center text-lg font-bold my-4">{`Search Result For "${searchText}"`}</h1>:null}
-            <div className="flex flex-wrap my-4 justify-center">
-                {products.length==0?null:products.map((x) => <HoodieCard key={x.id} prodData = {x}/>)}
-            </div>
-            {isAllLoaded
-            ?null
-            :<button 
-            className="text-lg font-bold text-center my-4 cursor-pointer w-full text-green-700 hover:text-green-500"
-            onClick = {()=>{
-                console.log("setPage clicked")
-                setPage(page+12);
-            }}
-            >Load More...</button>}
-            {isSearchLoadMore
-                ?<button 
+            {
+                products?.length==0
+                ?<ShimmerHome/>
+                :<><div className="flex flex-wrap my-4 justify-center">
+                    {products.length==0?null:products.map((x) => <HoodieCard key={x.id} prodData = {x}/>)}
+                </div>
+                {
+                isAllLoaded
+                ?null
+                :<button 
                 className="text-lg font-bold text-center my-4 cursor-pointer w-full text-green-700 hover:text-green-500"
                 onClick = {()=>{
-                    console.log("setSearchPage clicked")
-                    setSearchPage(searchPage+12);
-                }}>Load More...</button>
-                :null
+                    console.log("setPage clicked")
+                    setPage(page+12);
+                }}
+                >Load More...</button>}
+                {isSearchLoadMore
+                    ?<button 
+                    className="text-lg font-bold text-center my-4 cursor-pointer w-full text-green-700 hover:text-green-500"
+                    onClick = {()=>{
+                        console.log("setSearchPage clicked")
+                        setSearchPage(searchPage+12);
+                    }}>Load More...</button>
+                    :null
+                }
+                </>
             }
         </>
     )

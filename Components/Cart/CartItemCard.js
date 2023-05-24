@@ -1,30 +1,40 @@
 import { useContext, useEffect } from "react";
 import CartContext from "../../Utils/cartContext";
 
-const CartItemCard = ({cartItemDetails,key})=>{
-    const {cartItem,setCartItem} = useContext(CartContext);
-    console.log(cartItem);
+const CartItemCard = ({cartItemDetails})=>{
+    const {cartItems,removeCart,updateQuantityItem,updateCartFromLS} = useContext(CartContext);
+    console.log(cartItems);
     useEffect(()=>{
-        console.log("cartitems ",cartItem);
-        localStorage.setItem("hoodiehubcart",JSON.stringify(cartItem));
-    },[cartItem])
-    
+        updateCartFromLS();
+    },[])
     return(
         <div className="flex flex-row m-3">
-            <img src={cartItemDetails.img[0].imgurl} className="w-20"/>
+            <img src={cartItemDetails.img[0].imgurl} className="w-28"/>
             <div className="ml-3">
-                <h1>{cartItemDetails.brand}</h1>
-                <h1>{cartItemDetails.proddescription}</h1>
+                <h1 className="text-lg font-bold">{cartItemDetails.brand.toUpperCase()}</h1>
+                <h1 className="text-sm text-gray-600">{cartItemDetails.proddescription}</h1>
                 <div className="flex flex-row">
-                    <h1 className="text-md">₹{cartItemDetails.discprice}</h1>
-                    <h1 className="text-sm line-through ml-1">₹{cartItemDetails.mrp}</h1>
-                    <h1>{`(${cartItemDetails.discpercentage})%`}</h1>
+                    <h1 className="text-md font-bold mr-2">₹{cartItemDetails.discprice}</h1>
+                    <h1 className="text-md line-through text-gray-600"> ₹{cartItemDetails.mrp} </h1>
+                    <h1 className="text-md text-red-600 font-bold mx-2">{`(${cartItemDetails.discpercentage})%`}</h1>
                 </div>
-                <button className="bg-black text-sm text-white p-1 rounded-md"
+                <h1 className="font=semibold">SIZE : {cartItemDetails.size.toUpperCase()}</h1>
+                <div className="flex">
+                    <h1 className="mr-2 font-semibold">QUANTITY: </h1>
+                    <button onClick={()=>{
+                        updateQuantityItem(cartItemDetails,"decrement");
+                    }} className="font-bold text-md border text-white bg-black px-2 rounded-sm">-</button>
+                    <h1 className="mx-1">{cartItemDetails.count}</h1>
+                    <button onClick={()=>{
+                        console.log("+ clicked ",cartItemDetails);
+                        updateQuantityItem(cartItemDetails,"increment");
+                    }} className="font-bold text-md border px-2 text-white bg-black rounded-sm">+</button>
+                    
+                </div>
+                
+                <button className="bg-black text-sm text-white p-1 my-2 rounded-sm"
                 onClick={()=>{
-                    setCartItem({
-                        cartitems : cartItem.cartitems.filter((x)=>x.id!=cartItemDetails.id)
-                    })
+                    removeCart(cartItemDetails)
                 }}
                 >Delete Item</button>
             </div>
