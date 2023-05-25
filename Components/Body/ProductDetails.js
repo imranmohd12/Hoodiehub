@@ -7,7 +7,7 @@ import ShimmerProductDetails from "../Shimmer/ShimmerProductDetails";
 import { useFetchProductsWithoutLoadMore } from "../../Utils/fetchFunctions";
 
 const ProductDetails = () => {
-    const { updateCart } = useContext(CartContext);
+    const { addCart,cartItems,setCartItem} = useContext(CartContext);
     const [product, setProduct] = useState([]);
     const [size, setSize] = useState("");
     const [showError, setShowError] = useState(false);
@@ -62,7 +62,7 @@ const ProductDetails = () => {
                             className="my-4 text-2xl bg-black text-white rounded-lg p-3"
                             onClick={() => {
                                 if (isSizeSelected) {
-                                    updateCart({ ...product[0], key: product[0].id, size: size });
+                                    addCart({ ...product[0], key: product[0].id, size: size },setCartItem,cartItems);
                                 }
                                 else {
                                     setShowError(true);

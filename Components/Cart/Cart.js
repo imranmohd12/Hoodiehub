@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import CartContext from "../../Utils/cartContext";
 import CartItemCard from "./CartItemCard";
-
+import EmptyCart from "./EmptyCart";
 const Cart = ()=>{
     const {cartItems} = useContext(CartContext);
     const [totalMrp,setTotalMrp] = useState(0);
@@ -21,7 +21,9 @@ const Cart = ()=>{
         setTotalDiscountPrice(tdiscprice);
     },[cartItems])
     return(
-        <div className="mt-40 flex justify-around flex-wrap">
+        cartItems.length==0
+        ?<EmptyCart/>
+        :<div className="mt-40 flex justify-around flex-wrap min-h-[65vh]">
             <div className="pl-4">
                 <h1 className="text-xl font-semibold">{`My Cart (${cartItems.length} Items)`}</h1>
                 {cartItems.map((x)=>{
@@ -49,7 +51,7 @@ const Cart = ()=>{
                     </tr>
                 </table>
                 <button className="text-lg py-1 font-semibold bg-orange-700 text-white w-full rounded-md">Place Order</button>
-                <div>
+                <div className="my-4">
                     <h1 className="font-bold">Check Coupan</h1>
                     <input type="text" className="border-black border-2 rounded-md p-1"/><button className="bg-black text-white py-1 px-2 rounded-md mx-2">Check</button>
                 </div>
