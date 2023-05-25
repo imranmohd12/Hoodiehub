@@ -2,10 +2,10 @@ import { useContext, useEffect } from "react";
 import CartContext from "../../Utils/cartContext";
 
 const CartItemCard = ({cartItemDetails})=>{
-    const {cartItems,removeCart,updateQuantityItem,updateCartFromLS} = useContext(CartContext);
+    const {cartItems,removeCart,updateQuantityItem,updateCartFromLS,setCartItem} = useContext(CartContext);
     console.log(cartItems);
     useEffect(()=>{
-        updateCartFromLS();
+        updateCartFromLS(setCartItem);
     },[])
     return(
         <div className="flex flex-row m-3">
@@ -22,19 +22,19 @@ const CartItemCard = ({cartItemDetails})=>{
                 <div className="flex">
                     <h1 className="mr-2 font-semibold">QUANTITY: </h1>
                     <button onClick={()=>{
-                        updateQuantityItem(cartItemDetails,"decrement");
+                        updateQuantityItem(cartItemDetails,"decrement",setCartItem,cartItems);
                     }} className="font-bold text-md border text-white bg-black px-2 rounded-sm">-</button>
                     <h1 className="mx-1">{cartItemDetails.count}</h1>
                     <button onClick={()=>{
                         console.log("+ clicked ",cartItemDetails);
-                        updateQuantityItem(cartItemDetails,"increment");
+                        updateQuantityItem(cartItemDetails,"increment",setCartItem,cartItems);
                     }} className="font-bold text-md border px-2 text-white bg-black rounded-sm">+</button>
                     
                 </div>
                 
                 <button className="bg-black text-sm text-white p-1 my-2 rounded-sm"
                 onClick={()=>{
-                    removeCart(cartItemDetails)
+                    removeCart(cartItemDetails,setCartItem,cartItems)
                 }}
                 >Delete Item</button>
             </div>

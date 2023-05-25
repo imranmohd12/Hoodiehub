@@ -3,8 +3,7 @@ import CartContext from "../../Utils/cartContext";
 import { useContext, useEffect, useState } from "react";
 
 const HoodieCard = (props) => {
-    const contextItems = useContext(CartContext);
-    const { cartItems, updateCart } = useContext(CartContext);
+    const { setCartItem,cartItems, addCart } = useContext(CartContext);
     const [path,setPath] = useState(`/details/${props.prodData.id}`);
     const [size,setSize] = useState("");
     const [showError,setShowError] = useState(false);
@@ -50,7 +49,7 @@ const HoodieCard = (props) => {
                 className="bg-black text-white p-2 rounded-md w-5/6"
                 onClick={() => {
                     if(isSizeSelected){
-                        updateCart({...props.prodData,key:props.prodData.id,size:size});
+                        addCart({...props.prodData,key:props.prodData.id,size:size},setCartItem,cartItems);
                     }
                     else{
                         setShowError(true);
