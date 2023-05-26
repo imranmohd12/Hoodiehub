@@ -8,8 +8,8 @@ import Cart from "./Components/Cart/Cart";
 import { useContext, useEffect, useState } from "react";
 import ProductDetails from "./Components/Body/ProductDetails";
 import About from "./Components/Footer/About";
-import CartContext from "./Utils/cartContext";
 import { addCart,updateQuantityItem,removeCart,updateCartFromLS } from "./Utils/cartOperations";
+import CartContext from "./Utils/cartContext";
  
 const setLocalStorage = ()=>{
     let dummycart = []
