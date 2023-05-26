@@ -17,19 +17,19 @@ const Body = () => {
 
     //Pagination for all products
     useEffect(() => {
-        useFetchProducts(`http://localhost:3000/products/${page}/12`, setProducts, products,isAllLoadedMore,setIsAllLoadedMore)
+        useFetchProducts(`/products/${page}/15`, setProducts, products,isAllLoadedMore,setIsAllLoadedMore)
     }, [page]);
     //Intelligent dropdown while typing in search input field
     useEffect(() => {
         if (searchText.trim() != "")
-            useFetchProductsWithoutLoadMore(`http://localhost:3000/seachItems/${searchText.trim()}`, setSearchItems);
+            useFetchProductsWithoutLoadMore(`/seachItems/${searchText.trim()}`, setSearchItems);
         else
             setSearchItems([]);
     }, [searchText]);
     //Pagination for search results
     useEffect(() => {
         if (searchText.trim().length > 0) {
-            let len = useFetchProducts(`http://localhost:3000/similarproducts/${searchText.trim()}/${searchPage}/12`, setProducts, products,isSearchLoadMore,setIsSearchLoadMore)
+            let len = useFetchProducts(`/similarproducts/${searchText.trim()}/${searchPage}/15`, setProducts, products,isSearchLoadMore,setIsSearchLoadMore)
             console.log("data length ", len);
         }
     }, [searchPage]);
@@ -68,14 +68,14 @@ const Body = () => {
                     onClick={() => {
                         //setButtonItem(searchItem);
                         if (searchText.trim().length > 0) {
-                            useFetchProducts(`http://localhost:3000/similarproducts/${searchText.trim()}/0/12`, setProducts, []);
+                            useFetchProducts(`/similarproducts/${searchText.trim()}/0/15`, setProducts, []);
                             setIsSearchLoadMore(true);
                             setIsAllProducts(false);
                             setIsAllLoadedMore(false);
                         }
                         else if (!isAllProducts) {
                             console.log("isAllProducts false");
-                            useFetchProducts(`http://localhost:3000/products/${page}/12`, setProducts, []);
+                            useFetchProducts(`/products/${page}/15`, setProducts, []);
                             setIsSearchLoadMore(false);
                             setIsAllProducts(true);
                             setIsAllLoadedMore(true);
@@ -98,7 +98,7 @@ const Body = () => {
                                     className="text-lg font-bold text-center my-4 cursor-pointer w-full text-red-700 hover:text-green-500"
                                     onClick={() => {
                                         console.log("setPage clicked")
-                                        setPage(page + 12);
+                                        setPage(page + 15);
                                     }}
                                 >Load More...</button>
                                 : null
@@ -109,7 +109,7 @@ const Body = () => {
                                 className="text-lg font-bold text-center my-4 cursor-pointer w-full text-green-700 hover:text-green-500"
                                 onClick={() => {
                                     console.log("setSearchPage clicked")
-                                    setSearchPage(searchPage + 12);
+                                    setSearchPage(searchPage + 15);
                                 }}>Load More...</button>
                             : null
                         }

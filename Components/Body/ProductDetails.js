@@ -15,11 +15,12 @@ const ProductDetails = () => {
     let { id } = useParams();
     //Pagination for similar products
     useEffect(() => {
-        useFetchProductsWithoutLoadMore(`http://localhost:3000/products/${id}`, setProduct);
+        useFetchProductsWithoutLoadMore(`/products/${id}`, setProduct);
     }, [])
     return (
-        product.length == 0 ? <ShimmerProductDetails /> :
-            <>
+        product.length == 0 
+        ? <ShimmerProductDetails /> 
+        :    <>
                 <div className="mt-44 flex justify-center">
                     <div className="w-1/3 mx-4 justify-end">
                         <Carousel

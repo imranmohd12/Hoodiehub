@@ -9,16 +9,14 @@ const HoodieCard = (props) => {
     const [showError,setShowError] = useState(false);
     const [isSizeSelected,setIsSizeSelected] = useState(false);
     return (
-        <div className="flex flex-col m-4 sm:w-20  md:w-1/5 hover:shadow-xl transition-shadow items-center">
+        <div className="flex flex-col m-4 hover:shadow-xl transition-shadow items-center w-64 rounded-md">
             <Link 
             to={path} 
             onClick={()=>{
                 setPath(`/details/${props?.prodData?.id}`);
             }}
-            className="flex flex-col mx-4 text-center rounded-md h-5/6">
-                <div className="h-3/4">
-                    <img src={props?.prodData?.img[0]?.imgurl} className="rounded-tr-md rounded-tl-md h-full w-auto"></img>
-                </div>
+            className="flex flex-col mx-4 text-center rounded-md">
+                <img src={props?.prodData?.img[0]?.imgurl} className="rounded-tr-md rounded-tl-md h-64"></img>
                 <div>
                     <h1 className="text-lg font-bold">{props?.prodData?.brand}</h1>
                     <h1 className="text-sm">{props?.prodData?.proddescription}</h1>
@@ -46,7 +44,7 @@ const HoodieCard = (props) => {
             </div>
             {showError?<h1 className="text-red-700 text-sm">select size</h1>:null}
             <button
-                className="bg-black text-white p-2 rounded-md w-5/6"
+                className="bg-black text-white p-2 rounded-md w-5/6 my-2"
                 onClick={() => {
                     if(isSizeSelected){
                         addCart({...props.prodData,key:props.prodData.id,size:size},setCartItem,cartItems);

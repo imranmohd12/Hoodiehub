@@ -1,4 +1,4 @@
-Id,brand,description,mrp,card,discprice
+id,brand,proddescription,mrp,discpercentage,discprice
 1,Peter England,Peter England Jeans Multi Cotton Slim Fit Printed Sweatshirt,1749,30,1224
 2,U.S. Polo Assn.,U.S. Polo Assn. Red Cotton Regular Fit Logo Printed Hooded Sweatshirt,1949,35,1266
 3,Campus Sutra,Campus Sutra Light Grey Full Sleeves Hooded Sweatshirt,749,46,404

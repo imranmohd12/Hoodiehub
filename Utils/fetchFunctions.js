@@ -1,7 +1,9 @@
+const APIHOST = "https://careful-moth-life-jacket.cyclic.app/"
+
 
 export const useFetchProducts = async (api, setterFunction, prev,isLoadMore,setLoadMore) => {
     try {
-        const response = await fetch(api);
+        const response = await fetch(`${APIHOST}${api}`);
         const data = await response.json();
         if(data.length==0) setLoadMore(!isLoadMore);
         setterFunction([...prev, ...data]);
@@ -13,12 +15,12 @@ export const useFetchProducts = async (api, setterFunction, prev,isLoadMore,setL
 
 export const useFetchProductsWithoutLoadMore = async (api,setProduct)=>{
     try{
-        const resp = await fetch(api);
+        const resp = await fetch(`${APIHOST}${api}`);
         const data = await resp.json();
         setProduct(data);
     }
     catch(err){
-        throw new Error(err);
+        console.log(err);
     }
 }
 

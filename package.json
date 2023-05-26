@@ -2,10 +2,12 @@
   "name": "hoodiehub",
   "version": "1.0.0",
   "description": "This is e-commerce which sales hoodies",
-  "main": "App.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel ./index.html"
+    "start": "parcel ./index.html",
+    "build": "parcel build ./index.html"
   },
   "repository": {
     "type": "git",
@@ -14,6 +16,7 @@
   "author": "imran",
   "license": "ISC",
   "dependencies": {
+    "gh-pages": "^5.0.0",
     "postcss": "^8.4.23",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
