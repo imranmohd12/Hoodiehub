@@ -24,14 +24,3 @@ export const useFetchProductsWithoutLoadMore = async (api,setProduct)=>{
     }
 }
 
-// export const useFetchSimilarProducts = async (api,setProduct,products,setLoadMoreVisitble)=>{
-//     try{
-//     const res = await fetch(api);
-//     const data = await res.json();
-//     if(data.length==0) setLoadMoreVisitble(false);
-//     setProduct([...products,...data]);
-//     }
-//     catch(err){
-//         console.log("fetching caused error ",err);
-//     }
-// }

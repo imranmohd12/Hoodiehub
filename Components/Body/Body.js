@@ -29,8 +29,7 @@ const Body = () => {
     //Pagination for search results
     useEffect(() => {
         if (searchText.trim().length > 0) {
-            let len = useFetchProducts(`/similarproducts/${searchText.trim()}/${searchPage}/15`, setProducts, products,isSearchLoadMore,setIsSearchLoadMore)
-            console.log("data length ", len);
+            useFetchProducts(`/similarproducts/${searchText.trim()}/${searchPage}/15`, setProducts, products,isSearchLoadMore,setIsSearchLoadMore)
         }
     }, [searchPage]);
 
@@ -49,7 +48,6 @@ const Body = () => {
                             }, 200)}
                         onChange={(e) => {
                             setSearchText(e.target.value);
-                            console.log(searchText);
                         }}></input>
                     <ul className="absolute w-64 mx-2 bg-white">
                         {searchItems.length == 0
@@ -74,7 +72,6 @@ const Body = () => {
                             setIsAllLoadedMore(false);
                         }
                         else if (!isAllProducts) {
-                            console.log("isAllProducts false");
                             useFetchProducts(`/products/${page}/15`, setProducts, []);
                             setIsSearchLoadMore(false);
                             setIsAllProducts(true);
@@ -97,7 +94,6 @@ const Body = () => {
                                 ? <button
                                     className="text-lg font-bold text-center my-4 cursor-pointer w-full text-red-700 hover:text-green-500"
                                     onClick={() => {
-                                        console.log("setPage clicked")
                                         setPage(page + 15);
                                     }}
                                 >Load More...</button>
@@ -108,7 +104,6 @@ const Body = () => {
                             ? <button
                                 className="text-lg font-bold text-center my-4 cursor-pointer w-full text-green-700 hover:text-green-500"
                                 onClick={() => {
-                                    console.log("setSearchPage clicked")
                                     setSearchPage(searchPage + 15);
                                 }}>Load More...</button>
                             : null

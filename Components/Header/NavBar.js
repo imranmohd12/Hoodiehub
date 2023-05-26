@@ -5,7 +5,6 @@ import CartContext from "../../Utils/cartContext";
 const NavBar = ()=>{
     const {cartItems} = useContext(CartContext);
     const contextItems = useContext(CartContext);
-    console.log("cart context from navbar",CartContext);
     return (
         <div className="flex flex-row rounded-md">
             <Link to="/" className="m-2 mt-auto p-2 hover:bg-black hover:rounded-md hover:text-white transition-shadow">Home</Link>

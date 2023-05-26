@@ -14,12 +14,10 @@ import { addCart,updateQuantityItem,removeCart,updateCartFromLS } from "./Utils/
 const setLocalStorage = ()=>{
     let dummycart = []
     localStorage.setItem("hoodiehubcart",JSON.stringify(dummycart));
-    console.log("created");
     return dummycart;
 }
 const AppLayout = ()=>{
     const LS = localStorage.getItem("hoodiehubcart")?JSON.parse(localStorage.getItem("hoodiehubcart")):setLocalStorage();
-    console.log(localStorage.getItem("hoodiehubcart")=="null");
     const [cartItems,setCartItem] = useState(LS);
 
     useEffect(()=>{

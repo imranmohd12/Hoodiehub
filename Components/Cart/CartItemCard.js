@@ -3,7 +3,6 @@ import CartContext from "../../Utils/cartContext";
 
 const CartItemCard = ({cartItemDetails})=>{
     const {cartItems,removeCart,updateQuantityItem,updateCartFromLS,setCartItem} = useContext(CartContext);
-    console.log(cartItems);
     useEffect(()=>{
         updateCartFromLS(setCartItem);
     },[])
@@ -26,7 +25,6 @@ const CartItemCard = ({cartItemDetails})=>{
                     }} className="font-bold text-md border text-white bg-black px-2 rounded-sm">-</button>
                     <h1 className="mx-1">{cartItemDetails.count}</h1>
                     <button onClick={()=>{
-                        console.log("+ clicked ",cartItemDetails);
                         updateQuantityItem(cartItemDetails,"increment",setCartItem,cartItems);
                     }} className="font-bold text-md border px-2 text-white bg-black rounded-sm">+</button>
                     
