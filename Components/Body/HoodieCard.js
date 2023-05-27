@@ -14,6 +14,7 @@ const HoodieCard = (props) => {
             to={path} 
             onClick={()=>{
                 setPath(`/details/${props?.prodData?.id}`);
+                window.scrollTo(0, 0);
             }}
             className="flex flex-col mx-4 text-center rounded-md">
                 <img src={props?.prodData?.img[0]?.imgurl} className="rounded-tr-md rounded-tl-md h-64"></img>
