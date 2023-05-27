@@ -15,12 +15,9 @@ const ProductDetails = () => {
     const [isDeliveryAvailable,setIsDeliveryAvailable] = useState(false);
     const [pincode,setPincode] = useState("");
     const { id } = useParams();
-    const [path] = useState(`/products/${id}`);
-
-    //Pagination for similar products
     useEffect(() => {
         useFetchProductsWithoutLoadMore(`/products/${id}`, setProduct);
-    }, [path])
+    }, [id])
     return (
         product.length == 0 
         ? <ShimmerProductDetails /> 
