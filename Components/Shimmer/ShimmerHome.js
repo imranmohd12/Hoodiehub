@@ -3,8 +3,17 @@ const ShimmerHome = ()=>{
     return(
         <div className="flex flex-wrap justify-center">
             {
-                new Array(12).fill(0).map((x,i)=>{
-                    return <div className="w-1/5 h-72 bg-slate-300 m-4 rounded-md" key={`shimmerhome${i}`}></div>
+                new Array(15).fill(0).map((x,i)=>{
+                    return (
+                        <div className="w-64 h-72  m-6 rounded-md border p-2" key={`shimmerhome${i}`}>
+                              <div className="h-60 w-full  bg-slate-300 mb-2"></div>  
+                              <div className="h-10 w-full  bg-slate-300 mb-1"></div>
+                              <div className="h-2 w-full  bg-slate-300 mb-1"></div>
+                              <div className="h-2 w-full  bg-slate-300 mb-1"></div>
+                              <div className="h-3 w-full  bg-slate-300 mb-1"></div>
+                              <div className="h-15 w-full  bg-slate-300 mb-1"></div>
+                        </div>
+                    )
                 })
             }
         </div>

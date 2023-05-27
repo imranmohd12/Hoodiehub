@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { parsePath, useParams } from "react-router-dom";
 import Carousel from "./Carousel";
 import SimilarProducts from "./SimilarProducts";
 import CartContext from "../../Utils/cartContext";
@@ -12,17 +12,21 @@ const ProductDetails = () => {
     const [size, setSize] = useState("");
     const [showError, setShowError] = useState(false);
     const [isSizeSelected, setIsSizeSelected] = useState(false);
-    let { id } = useParams();
+    const [isDeliveryAvailable,setIsDeliveryAvailable] = useState(false);
+    const [pincode,setPincode] = useState("");
+    const { id } = useParams();
+    const [path] = useState(`/products/${id}`);
+
     //Pagination for similar products
     useEffect(() => {
         useFetchProductsWithoutLoadMore(`/products/${id}`, setProduct);
-    }, [])
+    }, [path])
     return (
         product.length == 0 
         ? <ShimmerProductDetails /> 
         :    <>
-                <div className="mt-44 flex justify-center">
-                    <div className="w-1/3 mx-4 justify-end">
+                <div className="mt-44 flex flex-wrap justify-center">
+                    <div className="w-3/4 sm:w-1/3 justify-end mr-2">
                         <Carousel
                             params={
                                 {
@@ -33,17 +37,17 @@ const ProductDetails = () => {
                             }
                         />
                     </div>
-                    <div className="">
-                        <h1 className="text-4xl font-bold">{product[0]?.brand.toUpperCase()}</h1>
+                    <div className="flex-col ml-2 text-center sm:text-left">
+                        <h1 className="text-2xl sm:text-4xl font-bold">{product[0]?.brand.toUpperCase()}</h1>
                         <h1 className="text-xl text-gray-500 my-2">{product[0]?.proddescription}</h1>
                         <hr></hr>
-                        <div className="flex my-4">
+                        <div className="flex my-4 justify-center sm:justify-normal">
                             <h1 className="font-bold">₹{product[0]?.discprice}</h1>
                             <h1 className="mx-2 text-gray-500">MRP <span className="line-through">{"₹" + product[0]?.mrp}</span></h1>
                             <h1 className="text-red-600 font-bold">{"(" + product[0]?.discpercentage + "% OFF)"}</h1>
                         </div>
                         <h1 className="font-BOLD text-2xl my-4">SELECT SIZE</h1>
-                        <div className="flex my-4">
+                        <div className="flex my-4 justify-center sm:justify-normal">
                             {Object.keys(product[0]?.sizes[0]).map((x) => {
                                 if (product[0]?.sizes[0][x] != 0) {
                                     return <><input type="radio" name={`size${product[0].id}`} value={x} id={x + product[0].id} className=""
@@ -76,6 +80,23 @@ const ProductDetails = () => {
                             <h1>Pay on delivery might be available</h1>
                             <h1>Easy 14 days returns and exchanges</h1>
                             <h1>Try & Buy might be available</h1>
+                        </div>
+                        <h1 className="text-lg font-semibold">Check Delivery</h1>
+                        {isDeliveryAvailable && pincode.length==6?<h1 className="text-md text-green-600">Delivery is available for {pincode}</h1>:null}
+                        
+                        <div className="my-4">
+                            <input type="text" placeholder="Check Pincode" className="p-1 border rounded-md" onChange=
+                            {(e)=>{
+                                setPincode(e.target.value);
+                                }}/>
+                            <button className="py-1 px-2 rounded-md mx-2 bg-orange-600 text-white" 
+                            onClick={
+                                ()=>{
+                                    if(!(isNaN(pincode)) && pincode.length==6) setIsDeliveryAvailable(true);
+                    
+                                }
+                            }
+                            >Check</button>
                         </div>
                     </div>
 

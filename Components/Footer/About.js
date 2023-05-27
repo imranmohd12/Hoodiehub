@@ -4,7 +4,7 @@ const About = ()=>{
     return (
         <div className="bg-black text-white text-center" id="about">
             <div>
-                <h1>This is representational website which depicts whole customer journey for buying through channel</h1>
+                <h1>This is representational website which depicts whole customer journey for buying through Hoodiehub</h1>
             </div>
             <div>
                 <h1>CONTACT US</h1>
