@@ -1,5 +1,5 @@
-const APIHOST = "https://careful-moth-life-jacket.cyclic.app/"
-
+//const APIHOST = "https://careful-moth-life-jacket.cyclic.app/"
+const APIHOST = "https://blue-fluffy-parrot.cyclic.app/"
 
 export const useFetchProducts = async (api, setterFunction, prev,isLoadMore,setLoadMore) => {
     try {
